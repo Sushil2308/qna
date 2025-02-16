@@ -11,8 +11,7 @@ class CustomLLMInstance:
             return ChatOllama(
                 base_url=OLLAMA_URL,
                 model=LLM_INFERENCE_MODEL,
-                temperature=0,
-                streaming=True,
+                temperature=0
             )
         except Exception as e:
             raise Exception(e)
