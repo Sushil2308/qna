@@ -1,37 +1,42 @@
-import asyncio
-from django.http import JsonResponse
-from django.utils.deprecation import MiddlewareMixin
-from django.contrib.auth.models import User
+import json
+from channels.middleware import BaseMiddleware
 from rest_framework.authtoken.models import Token
+from asgiref.sync import sync_to_async
 
-class AsyncJWTAuthenticationMiddleware(MiddlewareMixin):
-    def __init__(self, get_response):
-        self.get_response = get_response
+class AsyncAuthMiddleware(BaseMiddleware):
+    async def __call__(self, scope, receive, send):
+        """Middleware for authenticating WebSocket requests using Django Token Authentication."""
+        
+        headers = dict(scope["headers"])
+        auth_header = headers.get(b"authorization", b"").decode()
 
-    async def __call__(self, request):
-        """Handles JWT authentication for ASGI apps (Daphne support)."""
-        print("Here",request.path,"kkkk")
-        auth_header = request.headers.get("Authorization")
-        if auth_header and auth_header.startswith("Token "):
-            token = auth_header.split(" ")[1]
-            try:
-                # Fetch user asynchronously to avoid blocking in ASGI
-                user = await Token.objects.get(id=token).user
-                # Attach user to request
-                request.user = user
+        if not auth_header.startswith("Token "):
+            await self.send_error_response(send, {"error": "Authentication failed"}, status=401)
+        token_key = auth_header.split(" ")[1]
+        try:
+            token_obj = await Token.objects.aget(key=token_key)
+            scope["user"] = await sync_to_async(lambda: token_obj.user)()
+            # Continue processing if authentication is successful
+            await super().__call__(scope, receive, send)
+        except Token.DoesNotExist:
+            await self.send_error_response(send, {"error": "Invalid token"}, status=401)
+            return
+        except Exception as e:
+            print(str(e))
+            await self.send_error_response(send, {"error": "Authentication failed"}, status=401)
+            return
+        
+        
 
-            except User.DoesNotExist:
-                return JsonResponse({"error": "Invalid token"}, status=401)
-            except Exception:
-                return JsonResponse({"error": "Authentication failed"}, status=401)
+    async def send_error_response(self, send, message, status):
+        """Send an error response and close the WebSocket connection."""
+        await send({
+            "type": "websocket.close",
+            "code": status 
+        })
+        await send({
+            "type": "websocket.send",
+            "text": json.dumps(message)
+        })
 
-        else:
-            return JsonResponse({"error": "Authentication required"}, status=401)
 
-        return await self._get_response(request)
-
-    async def _get_response(self, request):
-        """Handles both async and sync views."""
-        if asyncio.iscoroutinefunction(self.get_response):
-            return await self.get_response(request)  # Async View
-        return self.get_response(request)  # Sync View

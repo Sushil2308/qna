@@ -35,7 +35,7 @@ class DocumentSplitter(ChunkEmbedding):
                 raise ValueError("Weaviate client is not able to connect!")
 
             # Step 5: Generate vector embeddings for each chunk
-            chunksVector = await self.aembedding(chunks=chunks)
+            chunksVector = await self.aembedding_batch(chunks=chunks)
 
             # Step 6: Update the document's chunking timestamp
             docOB.chunkedOn = datetime.now()

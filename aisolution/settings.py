@@ -155,3 +155,6 @@ OVERLAP = 100
 
 WEAVIATE_HOST = "https://c2jsq54vq62zo1dwiivw.c0.asia-southeast1.gcp.weaviate.cloud"
 WEAVIATE_PASSWORD = "4Jwr8VpjDtPwIcsPNc5Bney1IUyF7S0jDixr"
+
+LLM_INFERENCE_MODEL = "deepseek-r1:latest"
+EMBEDDING_MODEL = "bge-large"

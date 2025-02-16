@@ -9,8 +9,9 @@ OLLAMA_URL = "http://localhost:11434/api/generate"
 
 # Define request payload
 payload = {
-    "model": "bge-large", 
-    "prompt": "Can you write an essay on India under 100 words"
+    "model": "deepseek-r1:latest", 
+    "prompt": "Can you write an essay on India under 100 words",
+    "stream": True
 }
 
 # Send request
