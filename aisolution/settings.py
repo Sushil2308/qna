@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 import asyncio
 from pathlib import Path
-from datetime import timedelta
+from decouple import config, Csv
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -22,10 +22,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-c)fk06rlwt@i8=r_s^k!8##28o)hgjon173-0ec^#awh@8tth)'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', cast=bool)
 
 ALLOWED_HOSTS = []
 
@@ -138,7 +138,7 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-OLLAMA_URL = "http://localhost:11434"
+OLLAMA_URL = config('OLLAMA_URL')
 
 TASK_QUEUE = asyncio.Queue()
 TASK_LOCK = asyncio.Lock()
@@ -149,12 +149,12 @@ CHANNEL_LAYERS = {
     },
 }
 
-COLLECTION_DB = "Document_db"
-CHUNK_SIZE = 300
-OVERLAP = 100
+COLLECTION_DB = config('COLLECTION_DB')
+CHUNK_SIZE = config('CHUNK_SIZE', cast=int)
+OVERLAP = config('OVERLAP', cast=int)
 
-WEAVIATE_HOST = "https://c2jsq54vq62zo1dwiivw.c0.asia-southeast1.gcp.weaviate.cloud"
-WEAVIATE_PASSWORD = "4Jwr8VpjDtPwIcsPNc5Bney1IUyF7S0jDixr"
+WEAVIATE_HOST = config('WEAVIATE_HOST')
+WEAVIATE_PASSWORD = config('WEAVIATE_PASSWORD')
 
-LLM_INFERENCE_MODEL = "deepseek-r1:latest"
-EMBEDDING_MODEL = "bge-large"
+LLM_INFERENCE_MODEL = config('LLM_INFERENCE_MODEL')
+EMBEDDING_MODEL = config('EMBEDDING_MODEL')
