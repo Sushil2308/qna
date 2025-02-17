@@ -1,10 +1,10 @@
 from adrf.views import APIView
 from rest_framework.response import Response 
 from rest_framework.permissions import IsAuthenticated 
-from documents.management.commands import DocumentSplitter
+from docops.management.commands import DocumentSplitter
 from uuid import uuid4 
 from aisolution.settings import COLLECTION_DB 
-from documents.models import DocumentInfo, ProcessStatus 
+from docops.models import DocumentInfo, ProcessStatus 
 from django.core.exceptions import ObjectDoesNotExist 
 from rest_framework import status 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger

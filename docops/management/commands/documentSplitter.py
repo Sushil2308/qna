@@ -3,7 +3,7 @@ from weaviate.classes.init import Auth
 from llm.logic import ChunkEmbedding
 import weaviate.classes as wvc
 from aisolution.settings import WEAVIATE_HOST, WEAVIATE_PASSWORD
-from documents.models import DocumentInfo, ProcessStatus
+from docops.models import DocumentInfo, ProcessStatus
 from datetime import datetime
 from .splitterConfig import TextChunker
 CHUNKER = TextChunker()

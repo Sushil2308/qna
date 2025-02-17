@@ -6,7 +6,7 @@ import sys
 # Define API base URLs
 ENDPOINT = "127.0.0.1:8000"
 AUTH_BASE_URL = f"http://{ENDPOINT}/auth"
-DOCUMENT_BASE_URL = f"http://{ENDPOINT}/documents/ingestion"
+DOCUMENT_BASE_URL = f"http://{ENDPOINT}/docops/ingestion"
 CHAT_BASE_URL = f"http://{ENDPOINT}/qna/session"
 WEBSOCKET_URL = f"ws://{ENDPOINT}/qna/docChat"
 

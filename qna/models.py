@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from uuid import uuid4
-from documents.models import DocumentInfo
+from docops.models import DocumentInfo
 
 
 class ChatSessionManager(models.Model):

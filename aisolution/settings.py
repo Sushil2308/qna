@@ -42,9 +42,8 @@ INSTALLED_APPS = [
     'channels',
     'rest_framework',
     'rest_framework.authtoken',
-    'documents',
-    'qna',
-    
+    'docops',
+    'qna'
 ]
 
 MIDDLEWARE = [
@@ -83,7 +82,7 @@ ASGI_APPLICATION = 'aisolution.asgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3", 
+        "NAME": BASE_DIR / "db.sqlite4", 
     }
 }
 
