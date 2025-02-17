@@ -1,7 +1,7 @@
 # AISolution - Django Project
 
 ## Overview
-`AISolution` is a Django-based web application designed to solve advanced AI and machine learning-related problems. This documentation guides you through the setup, installation, and running the Django development server.
+AISolution is a Django-based web application designed to facilitate document management and RAG-based Q&A solutions using AI models. This documentation provides guidance on setting up, installing dependencies, and running the Django development server, along with details on authentication, document ingestion, chat session management, and WebSocket communication.
 
 ## Prerequisites
 
