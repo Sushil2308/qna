@@ -140,9 +140,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 OLLAMA_URL = config('OLLAMA_URL')
 
-TASK_QUEUE = asyncio.Queue()
-TASK_LOCK = asyncio.Lock()
-
 CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels.layers.InMemoryChannelLayer",
