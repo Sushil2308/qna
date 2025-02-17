@@ -3,7 +3,7 @@ from documents.views import DocumentIngestion
 
 urlpatterns = [
     path(
-        "api/ingestion",
+        "ingestion",
         DocumentIngestion.as_view(),
         name="Docuemnt Ingestion Operations",
     )

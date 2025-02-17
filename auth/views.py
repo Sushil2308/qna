@@ -11,7 +11,6 @@ class CustomLoginView(APIView):
     permission_classes = [AllowAny]
 
     def post(self, request):
-        print(request.data.get("username"),"kkkk")
         username = request.data.get("username")
         password = request.data.get("password")
         user = authenticate(username=username, password=password)
